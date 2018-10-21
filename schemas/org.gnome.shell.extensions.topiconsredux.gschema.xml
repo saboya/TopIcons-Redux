@@ -1,5 +1,5 @@
-<schemalist gettext-domain="TopIcons-Plus">
-  <schema id="org.gnome.shell.extensions.topicons" path="/org/gnome/shell/extensions/topicons/">
+<schemalist gettext-domain="TopIcons-Redux">
+  <schema id="org.gnome.shell.extensions.topiconsredux" path="/org/gnome/shell/extensions/topiconsredux/">
     <key name="icon-saturation" type="d">
       <default>0.4</default>
       <summary>Saturation</summary>
