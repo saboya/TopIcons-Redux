@@ -1,5 +1,5 @@
 INSTALL_PATH = ~/.local/share/gnome-shell/extensions
-INSTALL_NAME = TopIcons@phocean.net
+INSTALL_NAME = TopIconsRedux@pop-planet.info
 
 install: build
 	rm -rf $(INSTALL_PATH)/$(INSTALL_NAME)
@@ -14,7 +14,7 @@ build: compile-schema
 	cp -r --preserve=timestamps locale schemas convenience.js extension.js metadata.json prefs.js README.md _build
 	echo Build was successful 
 
-compile-schema: ./schemas/org.gnome.shell.extensions.topicons.gschema.xml
+compile-schema: ./schemas/org.gnome.shell.extensions.topiconsredux.gschema.xml
 	glib-compile-schemas schemas
 
 clean:
