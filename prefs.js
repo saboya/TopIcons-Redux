@@ -50,7 +50,7 @@ function init() {
     Convenience.initTranslations();
 }
 
-const TopIconsRedusSettings = new GObject.Class( {
+const TopIconsReduxSettings = new GObject.Class( {
   Name: 'TopIconsReduxPrefs',
   Extends: Gtk.Grid,
 
