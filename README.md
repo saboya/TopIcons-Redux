@@ -40,6 +40,29 @@ sudo apt-get install make
 sudo dnf install make
 ```
 
+#### Download a zip
+
+Stable versions can be downloaded from the [tags page](https://gitlab.com/pop-planet/TopIcons-Redux/tags/). Download and extract the zip to a location of your choice.
+
+Using your preferred terminal emulator, navigate to the extracted directory and `make` it.
+
+```bash
+cd TopIcons-Redux
+make install
+```
+
+This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your user account (you don't need to use `sudo` since it installs for your user). By default, TopIcons Redux is installed to `$HOME/.local/share/gnome-shell/extensions/TopIconsRedux@pop-planet.info/`.
+
+If you want to install the extension so that it will be usable system-wide, you will have to change the `INSTALL_PATH` variable, and run the installation using `sudo`.
+
+```bash
+sudo make install INSTALL_PATH=/usr/share/gnome-shell/extensions
+```
+
+Once installed, reload GNOME Shell by hitting <kbd>Alt</kbd>+<kbd>F2</kbd>, typing `r`, and hitting enter, or by logging out and back in.
+
+Finally, launch the `gnome-tweak-tool` utility to manage extensions. There, you can enable TopIcons Redux and tweak its look and feel.
+
 #### Clone from git
 
 You can pull the latest development version by cloning this repo.
