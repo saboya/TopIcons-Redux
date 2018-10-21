@@ -1,7 +1,7 @@
 {
-  "description": "This extension moves legacy tray icons (bottom left of Gnome Shell) to the top panel. It is a fork from the original extension from ag  with settings for icon opacity, saturation, padding, size and tray position, along with a few minor fixes and integration with the Skype integration extension.",
-  "name": "TopIcons Plus",
-  "gettext-domain": "TopIcons-Plus",
+  "description": "Displays legacy tray icons in the GNOME Shell top panel. Updated fork of TopIcons Plus.",
+  "name": "TopIcons Redux",
+  "gettext-domain": "TopIcons-Redux",
   "shell-version": [
     "3.16",
     "3.18",
@@ -10,10 +10,11 @@
     "3.22",
     "3.23",
     "3.24",
-    "3.26"
+    "3.26",
+    "3.30"
   ], 
-  "settings-schema": "org.gnome.shell.extensions.topicons",
-  "url": "https://github.com/phocean/TopIcons-plus",
-  "uuid": "TopIcons@phocean.net",
+  "settings-schema": "org.gnome.shell.extensions.topiconsredux",
+  "url": "https://gitlab.com/pop-planet/TopIcons-Redux",
+  "uuid": "TopIconsRedux@pop-planet.info",
   "version": 21
 }
