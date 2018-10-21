@@ -22,7 +22,7 @@ To install extensions through this website, you will need the GNOME Shell integr
 
 Once you have the GNOME Shell integration extension, all you have to do is click the switch on the extension page to the "on" position.
 
-![Toggle Switch](https://gitlab.com/pop-planet/TopIcons-Redux/raw/master/assets/images/toggle-switch.png)
+![Toggle Switch](https://gitlab.com/pop-planet/TopIcons-Redux/raw/master/media/toggle-switch.png)
 
 GNOME Shell will display a prompt asking you to confirm that you want to download and install this extension. Select "Install" and you're done! You can find the available settings by going to the [Installed Extensions](https://extensions.gnome.org/local/) page and selecting the wrench-and-screwdriver button for TopIcons Redux.
 
