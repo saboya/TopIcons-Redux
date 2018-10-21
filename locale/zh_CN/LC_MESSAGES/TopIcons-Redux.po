@@ -1,11 +1,11 @@
-# Chinese (China) translation for TopIcons-Plus.
-# Copyright (C) 2017-2017 TopIcons-Plus's COPYRIGHT HOLDER
-# This file is distributed under the same license as the TopIcons-Plus package.
+# Chinese (China) translation for TopIcons-Redux.
+# Copyright (C) 2018 TopIcons-Redux's COPYRIGHT HOLDER
+# This file is distributed under the same license as the TopIcons-Redux package.
 # Dingzhong Chen <wsxy162@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: TopIcons-Plus master\n"
+"Project-Id-Version: TopIcons-Redux master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-20 03:23+0800\n"
 "PO-Revision-Date: 2017-09-20 03:44+0800\n"
