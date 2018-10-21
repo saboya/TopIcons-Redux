@@ -1,106 +1,81 @@
-# UNMAINTAINED
+# TopIcons Redux
 
+## Notice
 
-> As stated in issue [#91](https://github.com/phocean/TopIcons-plus/issues/91), I have stopped maintaining this project actively.
-
-I am not a TopIcons-Plus user myself and even not a Gnome user anymore.
-
-Moreover, the Gnome project chose to drop status icons and any kind of legacy tray, making the project useless on the long term and difficult to maintain due to bugs or lack of features that are out of its scope.
-
-# TopIcons Plus
+TopIcons Redux is a fork of [TopIcons Plus](https://github.com/phocean/TopIcons-plus). We have taken over maintaining this extension since TopIcons Plus is no longer being maintained. That said, the reason it is no longer maintained may well be valid. Recently, the GNOME project chose to drop support for status icons and any kind of legacy tray in favor of the newer status icon system. Unfortunately, this means that many apps don't have a way of displaying icons until they are updated upstream. As such, we will continue to maintain this until it is no longer needed.
 
 ## Introduction
 
-Many applications, such as chat clients, downloaders, and some media players, are meant to run long-term in the background even after you close their window. These applications remain accessible by adding an icon to the GNOME Shell Legacy Tray. However, the Legacy Tray is hidden until you push your mouse into the lower-left of the screen and click on the small tab that appears. TopIcons Plus brings all icons back to the top panel, so that it's easier to keep track of apps running in the backround.
-
-Take a look at TopIcons Plus in action. Before installing (standard GNOME Legacy Tray in the bottom left):
-
-![Before](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/before.png)
-
-After installing (icons have moved to the top right):
-
-![After](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/after.png)
-
-You also get some options to control the look and feel. You can leave the icons in full color:
-
-![Tray](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/tray1.png)
-
-Or dynamically convert them to grayscale:
-
-![Tray](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/tray2.png)
+Many applications, such as chat clients, downloaders, and some media players, are meant to run long-term in the background even after you close their window. These applications remain accessible by adding an icon to the GNOME Shell Legacy Tray. However, the Legacy Tray was removed in GNOME 3.26. TopIcons Redux brings those icons back into the top panel so that it's easier to keep track of apps running in the backround.
 
 Enjoy!
 
-
 ## Installation
 
-TopIcons Plus requires GNOME Shell 3.16 or newer.
+__NOTE:__ TopIcons Redux requires GNOME Shell 3.16 or newer.
 
-### Get it from the extensions website
+### Recommended: GNOME Shell Extensions website
 
-Point your web browser to the TopIcons Plus page on the [GNOME Shell Extensions website](https://extensions.gnome.org/extension/1031/topicons/). GNOME uses a browser addon, which should have come with your Linux distro, to provide a web interface to the extensions manager on your system. Currently, only Firefox is supported, but support for other browsers is in the works. The first time you visit this website, you should be prompted to enable this browser addon -- [see the FAQs](https://extensions.gnome.org/about/#no-detection) if you have any issues, then go back to the TopIcons Plus page.
+TopIcons Redux is available on the [GNOME Shell Extensions website](https://extensions.gnome.org).
 
-All you have to do next is click the switch on the extension page from off to on.
+To install extensions through this website, you will need the GNOME Shell integration browser extension which is available for both [Chrome/Chromium](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/gnome-shell-integration/). The first time you visit the Extensions website you will be prompted to install or enable this addon.
 
-![Toggle Switch](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/toggle-switch.png)
+Once you have the GNOME Shell integration extension, all you have to do is click the switch on the extension page to the "on" position.
 
-There will be a GNOME Shell pop-up asking you to confirm that you want to download and install this extension. After that, it may take a moment for the extension to set itself up, but *you* are done. Icons will move from the legacy tray to the top panel on their own.
+![Toggle Switch](https://gitlab.com/pop-planet/TopIcons-Redux/raw/master/assets/images/toggle-switch.png)
 
-If you want to tweak the icons' look and feel, you can go to the web page for [Installed Extensions](https://extensions.gnome.org/local/). Click on the wrench-and-screwdriver button to open the TopIcons Plus settings, or click the red X button to uninstall.
+GNOME Shell will display a prompt asking you to confirm that you want to download and install this extension. Select "Install" and you're done! You can find the available settings by going to the [Installed Extensions](https://extensions.gnome.org/local/) page and selecting the wrench-and-screwdriver button for TopIcons Redux.
 
-![Installed Extensions web page](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/installed-extension-web-page.png)
+Be sure to revisit the [Installed Extensions](https://extensions.gnome.org/local/) occasionally to check for updates (look for a green update button).
 
-If you install extensions from the GNOME website like this, be sure to revisit this page occasionally to check for updates (look for a green update button).
+### Advanced: Build it yourself
 
-### Or compile it yourself
-
-Pre-Requisite: You need the *make* utility :
+__NOTE:__ The `make` utility is necessary to build TopIcons Redux:
 
 ```bash
 # Debian, Ubuntu
 sudo apt-get install make
+
 # Red Hat, Fedora
 sudo dnf install make
 ```
 
-Download the code to any folder, using git:
+#### Clone from git
+
+You can pull the latest development version by cloning this repo.
 
 ```bash
-git clone https://github.com/phocean/TopIcons-plus.git
+git clone https://gitlab.com/pop-planet/TopIcons-Redux.git
 ```
 
-Go into the TopIcons Plus project directory and execute the installation script.
+Using your preferred terminal emulator, navigate to the cloned directory and `make` it.
 
 ```bash
-cd TopIcons-plus
+cd TopIcons-Redux
 make install
 ```
 
-This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your own user account (so you don't need admin privileges to run `make`). By default, TopIcons Plus will live in the directory `~/.local/share/gnome-shell/extensions/TopIcons@phocean.net/`.
+This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your user account (you don't need to use `sudo` since it installs for your user). By default, TopIcons Redux is installed to `$HOME/.local/share/gnome-shell/extensions/TopIconsRedux@pop-planet.info/`.
 
-If you want to install the extension so that it will be usable system-wide, you'll have to change the `INSTALL_PATH` variable, and run as root.
+If you want to install the extension so that it will be usable system-wide, you will have to change the `INSTALL_PATH` variable, and run the installation using `sudo`.
 
 ```bash
 sudo make install INSTALL_PATH=/usr/share/gnome-shell/extensions
 ```
 
-Now, reload GNOME Shell. You can either hit <kbd>Alt</kbd>+<kbd>F2</kbd>, type `r`, and hit enter --- or login/logout.
+Once installed, reload GNOME Shell by hitting <kbd>Alt</kbd>+<kbd>F2</kbd>, typing `r`, and hitting enter, or by logging out and back in.
 
-![Reload Gnome](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/reload.png)
-
-Finally, launch the *gnome-tweak-tool* utility to manage extensions. There, you can enable *TopIcons Plus* and then tweak its look and feel.
-
-![Enable TopIcons](https://raw.githubusercontent.com/phocean/TopIcons-plus/master/screenshots/tweak.png)
-
-## Known issues
-
-GNOME Shell by default now runs on top of [Wayland](https://wayland.freedesktop.org/) by default, as of release 3.22. However, there are still some remaining bugs, as not all applications, particularly non-GNOME apps, have adapted to Wayland yet. These really have nothing to do with TopIcons Plus itself, but we do have a [GitHub Issue to keep track of workarounds](https://github.com/phocean/TopIcons-plus/issues/47) while we wait for the different app developers to catch up with the new graphics backend.
+Finally, launch the `gnome-tweak-tool` utility to manage extensions. There, you can enable TopIcons Redux and tweak its look and feel.
 
 ## Credits
 
-TopIcons Plus is a fork of TopIcons. Many thanks go to Adel Gadllah for making the original extension, and also to Mjnaderi for the [Toptray fork](https://github.com/mjnaderi/TopTray).
+TopIcons Redux is a fork of TopIcons Plus, which is itself a fork of TopIcons. Our thanks go out to the following people who helped make TopIcons Redux what it is today:
 
-Also, thanks to all contributors (code and issues), and especially to:
+* [petres](https://github.com/petres/gnome-shell-extension-extensions) - Author of TopIcons Plus
+* [Mjnaderi](https://github.com/mjnaderi/TopTray) - Author of the Toptray fork
+* Adel Gaddlah - Author of the original TopIcons extension
 
-- [nevesnunes](https://github.com/nevesnunes) for the very nice code improvements he brought up,
-- [terrycloth](https://github.com/terrycloth) for his contributions to the installation script and documentation to make it ready for the Fedora packaging.
+Additional thanks to the following contributors:
+
+* [nevesnunes](https://github.com/nevesnunes)
+* [terrycloth](https://github.com/terrycloth)
