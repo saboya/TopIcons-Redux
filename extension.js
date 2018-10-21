@@ -244,7 +244,7 @@ function createTray() {
   tray = new Shell.TrayManager();
   tray.connect( 'tray-icon-added', onTrayIconAdded );
   tray.connect( 'tray-icon-removed', onTrayIconRemoved );
-  tray.manage_screen( global.screen, Main.panel.actor );
+  tray.manage_screen( Main.panel.actor );
   placeTray();
 }
 
