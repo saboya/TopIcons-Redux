@@ -16,7 +16,7 @@ __NOTE:__ TopIcons Redux requires GNOME Shell 3.16 or newer.
 
 ### Recommended: GNOME Shell Extensions website
 
-TopIcons Redux is available on the [GNOME Shell Extensions website](https://extensions.gnome.org).
+TopIcons Redux is available on the [GNOME Shell Extensions website](https://extensions.gnome.org/extension/1497/topicons-redux/).
 
 To install extensions through this website, you will need the GNOME Shell integration browser extension which is available for both [Chrome/Chromium](https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/gnome-shell-integration/). The first time you visit the Extensions website you will be prompted to install or enable this addon.
 
