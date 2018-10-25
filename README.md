@@ -26,7 +26,7 @@ Once you have the GNOME Shell integration extension, all you have to do is click
 
 GNOME Shell will display a prompt asking you to confirm that you want to download and install this extension. Select "Install" and you're done! You can find the available settings by going to the [Installed Extensions](https://extensions.gnome.org/local/) page and selecting the wrench-and-screwdriver button for TopIcons Redux.
 
-Be sure to revisit the [Installed Extensions](https://extensions.gnome.org/local/) occasionally to check for updates (look for a green update button).
+Be sure to revisit the [Installed Extensions](https://extensions.gnome.org/local/) page occasionally to check for updates (look for a green update button).
 
 ### Advanced: Build it yourself
 
