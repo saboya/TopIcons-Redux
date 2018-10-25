@@ -16,5 +16,5 @@
   "settings-schema": "org.gnome.shell.extensions.topicons-redux",
   "url": "https://gitlab.com/pop-planet/TopIcons-Redux",
   "uuid": "topicons-redux@pop-planet.info",
-  "version": 2
+  "version": 1
 }
