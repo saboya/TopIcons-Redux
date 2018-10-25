@@ -39,7 +39,7 @@ const Clutter        = imports.gi.Clutter;
 const PanelMenu      = imports.ui.panelMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me             = ExtensionUtils.getCurrentExtension();
-const Convenience    = Me.imports.convenience;
+const Utils          = Me.imports.utils;
 
 let settings                = null;
 let tray                    = null;
@@ -50,7 +50,7 @@ let icons                   = [];
 let iconsBoxLayout          = null;
 let iconsContainer          = null;
 let panelChildSignals       = {};
-let blacklist               = [["skype","SkypeNotification@chrisss404.gmail.com"]];  // blacklist: array of [uuid, wmClass (icon application name)] pairs
+let blacklist               = [["skype"]];
 
 
 /**
@@ -58,7 +58,9 @@ let blacklist               = [["skype","SkypeNotification@chrisss404.gmail.com"
  *
  * Initialize the extension and boostrap translations
  */
-function init() { Convenience.initTranslations(); }
+function init() {
+  Utils.initTranslations( 'topicons-redux' );
+}
 
 
 /**
@@ -75,15 +77,15 @@ function enable() {
       GLib.idle_add( GLib.PRIORITY_LOW, createTray );
   }
 
-  settings = Convenience.getSettings();
-  settings.connect( 'changed::icon-opacity', Lang.bind( this, setOpacity ) );
-  settings.connect( 'changed::icon-saturation', Lang.bind( this, setSaturation ) );
-  settings.connect( 'changed::icon-brightness', Lang.bind( this, setBrightnessContrast ) );
-  settings.connect( 'changed::icon-contrast', Lang.bind( this, setBrightnessContrast ) );
+  settings = Utils.getSettings();
+  settings.connect( 'changed::alignment', Lang.bind( this, placeTray ) );
+  settings.connect( 'changed::offset', Lang.bind( this, placeTray ) );
+  settings.connect( 'changed::brightness', Lang.bind( this, setBrightnessContrast ) );
+  settings.connect( 'changed::contrast', Lang.bind( this, setBrightnessContrast ) );
+  settings.connect( 'changed::desaturation', Lang.bind( this, setDesaturation ) );
+  settings.connect( 'changed::opacity', Lang.bind( this, setOpacity ) );
   settings.connect( 'changed::icon-size', Lang.bind( this, setSize ) );
-  settings.connect( 'changed::icon-spacing', Lang.bind( this, setSpacing ) );
-  settings.connect( 'changed::tray-pos', Lang.bind( this, placeTray ) );
-  settings.connect( 'changed::tray-order', Lang.bind( this, placeTray ) );
+  settings.connect( 'changed::spacing', Lang.bind( this, setSpacing ) );
 
   connectPanelChildSignals();
 }
@@ -358,8 +360,8 @@ function moveToTray() {
  * placeTray:
  */
 function placeTray() {
-  let trayPosition = settings.get_string( 'tray-pos' );
-  let trayOrder    = settings.get_int( 'tray-order' );
+  let trayPosition = settings.get_enum( 'alignment' );
+  let trayOrder    = settings.get_int( 'offset' );
 
   let parent = iconsContainer.actor.get_parent();
 
@@ -370,10 +372,10 @@ function placeTray() {
   // Panel box
   let box;
 
-  if ( trayPosition == 'left' ) {
-    box = Main.panel._leftBox;
-  } else if ( trayPosition == 'center' ) {
+  if ( trayPosition == 0 ) {
     box = Main.panel._centerBox;
+  } else if ( trayPosition == 1 ) {
+    box = Main.panel._leftBox;
   } else {
     box = Main.panel._rightBox;
   }
@@ -394,7 +396,7 @@ function setIcon( icon ) {
 
   setSize( icon );
   setOpacity( icon );
-  setSaturation( icon );
+  setDesaturation( icon );
   setBrightnessContrast( icon );
 }
 
@@ -403,7 +405,7 @@ function setIcon( icon ) {
  * setOpacity:
  */
 function setOpacity( icon ) {
-  let opacityValue = settings.get_int( 'icon-opacity' );
+  let opacityValue = settings.get_int( 'opacity' );
 
   if ( arguments.length == 1 ) {
     icon.opacityEnterId = icon.get_parent().connect( 'enter-event', function( actor, event ) { icon.opacity = 255; } );
@@ -422,10 +424,10 @@ function setOpacity( icon ) {
 
 
 /**
- * setSaturation:
+ * setDesaturation:
  */
-function setSaturation( icon ) {
-  let desaturationValue = settings.get_double( 'icon-saturation' );
+function setDesaturation( icon ) {
+  let desaturationValue = settings.get_double( 'desaturation' );
 
   if ( arguments.length == 1 ) {
     let sat_effect = new Clutter.DesaturateEffect( { factor : desaturationValue } );
@@ -451,8 +453,8 @@ function setSaturation( icon ) {
  * setBrightnessContrast:
  */
 function setBrightnessContrast( icon ) {
-  let brightnessValue = settings.get_double( 'icon-brightness' );
-  let contrastValue   = settings.get_double( 'icon-contrast' );
+  let brightnessValue = settings.get_double( 'brightness' );
+  let contrastValue   = settings.get_double( 'contrast' );
 
   if ( arguments.length == 1 ) {
     let bright_effect = new Clutter.BrightnessContrastEffect( {} );
@@ -497,7 +499,7 @@ function setSize( icon ) {
  * setSpacing:
  */
 function setSpacing() {
-  let boxLayoutSpacing = settings.get_int( 'icon-spacing' );
+  let boxLayoutSpacing = settings.get_int( 'spacing' );
 
   iconsBoxLayout.set_style( 'spacing: ' + boxLayoutSpacing + 'px; margin_top: 2px; margin_bottom: 2px;' );
 }

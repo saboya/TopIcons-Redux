@@ -1,0 +1,46 @@
+<schemalist gettext-domain="topicons-redux">
+  <enum id='org.gnome.shell.extensions.topicons-redux.alignment'>
+      <value value='0' nick='center'/>
+      <value value='1' nick='left'/>
+      <value value='2' nick='right'/>
+  </enum>
+
+  <schema id="org.gnome.shell.extensions.topicons-redux"  path="/org/gnome/shell/extensions/topicons-redux/">
+    <key name="brightness" type="d">
+      <default>0.0</default>
+      <summary>Brightness</summary>
+    </key>
+    <key name="contrast" type="d">
+      <default>0.0</default>
+      <summary>Contrast</summary>
+    </key>
+    <key name="desaturation" type="d">
+      <default>0.4</default>
+      <summary>Desaturation</summary>
+    </key>
+    <key name="icon-size" type="i">
+      <default>20</default>
+      <summary>Icon size</summary>
+      <description>Icon size in pixel</description>
+    </key>
+    <key name="offset" type="i">
+      <default>0</default>
+      <summary>Order in tray</summary>
+      <description>Set where the TopIcon tray should appear among other trays</description>
+    </key>
+    <key name="opacity" type="i">
+      <default>220</default>
+      <summary>Opacity</summary>
+    </key>
+    <key name="spacing" type="i">
+      <default>12</default>
+      <summary>Icon spacing</summary>
+      <description>Icon spacing within the tray</description>
+    </key>
+    <key name="alignment" enum="org.gnome.shell.extensions.topicons-redux.alignment">
+      <default>"center"</default>
+      <summary>Position in tray</summary>
+      <description>Set where the TopIcon tray should appear in Gnome tray</description>
+    </key>
+  </schema>
+</schemalist>

@@ -29,16 +29,17 @@
  */
 
 
-const GObject = imports.gi.GObject;
-const Gtk     = imports.gi.Gtk;
-const Lang    = imports.lang;
-const Gio     = imports.gi.Gio;
+const GObject        = imports.gi.GObject;
+const Gtk            = imports.gi.Gtk;
+const Gio            = imports.gi.Gio;
+const Lang           = imports.lang;
+const Me             = imports.misc.extensionUtils.getCurrentExtension();
+const Utils          = Me.imports.utils;
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me             = ExtensionUtils.getCurrentExtension();
-const Convenience    = Me.imports.convenience;
-const Gettext        = imports.gettext.domain( Me.metadata['gettext-domain'] );
-const _              = Gettext.gettext;
+const Gettext = imports.gettext.domain( 'topicons-redux' );
+const _       = Gettext.gettext;
+
+let settings;
 
 
 /**
@@ -47,193 +48,40 @@ const _              = Gettext.gettext;
  * Initialize preferences and boostrap translations
  */
 function init() {
-    Convenience.initTranslations();
+  settings = Utils.getSettings();
+  Utils.initTranslations( 'topicons-redux' );
 }
-
-const TopIconsReduxSettings = new GObject.Class( {
-  Name: 'TopIconsReduxPrefs',
-  Extends: Gtk.Grid,
-
-  _init: function( params ) {
-    this.parent(params);
-    this.margin      = 24;
-    this.spacing     = 30;
-    this.row_spacing = 10;
-    this._settings   = Convenience.getSettings();
-
-    let label           = null;
-    let widget          = null;
-    let value           = null;
-    let positionSetting = null;
-    let positionButton  = null;
-    let radio           = null;
-
-    // Icon opacity
-    label = new Gtk.Label( {
-      label  : _( 'Opacity (min: 0, max: 255)' ),
-      hexpand: true,
-      halign : Gtk.Align.START
-    } );
-
-    widget = new Gtk.SpinButton( { halign: Gtk.Align.END } );
-    widget.set_sensitive( true );
-    widget.set_range( 0, 255 );
-    widget.set_value( this._settings.get_int( 'icon-opacity' ) );
-    widget.set_increments( 1, 2 );
-    widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-      value = w.get_value_as_int();
-      this._settings.set_int( 'icon-opacity', value );
-    } ) );
-
-    this.attach( label, 0, 1, 1, 1 );
-    this.attach( widget, 1, 1, 1, 1 );
-
-    // Icon saturation
-    label = new Gtk.Label( {
-      label  : _( 'Desaturation (min: 0.0, max: 1.0)' ),
-      hexpand: true,
-      halign : Gtk.Align.START
-    } );
-
-    widget = new Gtk.SpinButton( { halign:Gtk.Align.END, digits:1 } );
-    widget.set_sensitive( true );
-    widget.set_range( 0.0, 1.0 );
-    widget.set_value( this._settings.get_double( 'icon-saturation' ) );
-    widget.set_increments( 0.1, 0.2 );
-    widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-      value = w.get_value();
-      this._settings.set_double( 'icon-saturation', value );
-    } ) );
-
-    this.attach( label, 0, 2, 1, 1 );
-    this.attach( widget, 1, 2, 1, 1 );
-
-    // Icon brightness
-    label = new Gtk.Label( {
-      label  : _( 'Brightness (min: -1.0, max: 1.0)' ),
-      hexpand: true,
-      halign : Gtk.Align.START
-    } );
-
-    widget = new Gtk.SpinButton( { halign:Gtk.Align.END, digits:1 } );
-    widget.set_sensitive( true );
-    widget.set_range( -1.0, 1.0 );
-    widget.set_value( this._settings.get_double( 'icon-brightness' ) );
-    widget.set_increments( 0.1, 0.2 );
-    widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-      value = w.get_value();
-      this._settings.set_double( 'icon-brightness', value );
-    } ) );
-
-    this.attach( label, 0, 3, 1, 1 );
-    this.attach( widget, 1, 3, 1, 1 );
-
-    // Icon contrast
-    label = new Gtk.Label( {
-      label  : _( 'Contrast (min: -1.0, max: 1.0)' ),
-      hexpand: true,
-      halign : Gtk.Align.START
-    } );
-
-    widget = new Gtk.SpinButton( { halign:Gtk.Align.END, digits:1 } );
-      widget.set_sensitive( true );
-      widget.set_range( -1.0, 1.0 );
-      widget.set_value( this._settings.get_double( 'icon-contrast' ) );
-      widget.set_increments( 0.1, 0.2 );
-      widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-        value = w.get_value();
-        this._settings.set_double( 'icon-contrast', value );
-      } ) );
-
-      this.attach( label, 0, 4, 1, 1 );
-      this.attach( widget, 1, 4, 1, 1 );
-
-      // Icon size
-      label = new Gtk.Label( {
-        label  : _( 'Icon size (min: 0, max: 96)' ),
-        hexpand: true,
-        halign : Gtk.Align.START
-      } );
-
-      widget = new Gtk.SpinButton( { halign:Gtk.Align.END } );
-      widget.set_sensitive( true );
-      widget.set_range( 0, 96 );
-      widget.set_value( this._settings.get_int( 'icon-size' ) );
-      widget.set_increments( 1, 2 );
-      widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-        value = w.get_value_as_int();
-        this._settings.set_int( 'icon-size', value );
-      } ) );
-
-      this.attach( label, 0, 5, 1, 1 );
-      this.attach( widget, 1, 5, 1, 1 );
-
-      // Icon tray spacing
-      label = new Gtk.Label( {
-        label  : _( 'Spacing between icons (min: 0, max: 20)' ),
-        hexpand: true,
-        halign : Gtk.Align.START
-      } );
-
-      widget = new Gtk.SpinButton( { halign:Gtk.Align.END } );
-      widget.set_sensitive( true );
-      widget.set_range( 0, 20 );
-      widget.set_value( this._settings.get_int( 'icon-spacing' ) );
-      widget.set_increments( 1, 2 );
-      widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-        value = w.get_value_as_int();
-        this._settings.set_int( 'icon-spacing', value );
-      } ) );
-
-      this.attach( label, 0, 6, 1, 1 );
-      this.attach( widget, 1, 6, 1, 1 );
-
-      // Tray position in panel
-      label = new Gtk.Label( {
-        label  : _('Tray horizontal alignment'),
-        hexpand: true,
-        halign : Gtk.Align.START
-      } );
-
-      widget = new Gtk.ComboBoxText();
-      widget.append( 'center', _( 'Center' ) );
-      widget.append( 'left', _( 'Left' ) );
-      widget.append( 'right', _( 'Right' ) );
-      this._settings.bind( 'tray-pos', widget, 'active-id', Gio.SettingsBindFlags.DEFAULT );
-      this.attach( label, 0, 7, 1, 1 );
-      this.attach( widget, 1, 7, 1, 1 );
-
-      // Tray order in panel
-      label = new Gtk.Label( {
-        label  : _('Tray offset'),
-        hexpand: true,
-        halign : Gtk.Align.START
-      } );
-
-      widget = new Gtk.SpinButton({halign:Gtk.Align.END});
-      widget.set_sensitive( true );
-      widget.set_range( 0, 20 );
-      widget.set_value( this._settings.get_int( 'tray-order' ) );
-      widget.set_increments( 1, 2 );
-      widget.connect( 'value-changed', Lang.bind( this, function( w ) {
-        value = w.get_value_as_int();
-        this._settings.set_int( 'tray-order', value );
-      } ) );
-
-      this.attach( label, 0, 8, 1, 1 );
-      this.attach( widget, 1, 8, 1, 1 );
-
-      //this._changedPermitted = true;
-    }
-} );
 
 
 /**
  * buildPrefsWidget:
  */
 function buildPrefsWidget() {
-  let widget = new TopIconsReduxSettings();
-  widget.show_all();
+  // Setup Builder
+  let buildable = new Gtk.Builder();
+  buildable.add_from_file( Me.dir.get_path() + '/Settings.ui' );
+  let box = buildable.get_object( 'prefs_widget' );
 
-  return widget;
+  // Append version
+  buildable.get_object( 'extension_version' ).set_text( Me.metadata.version.toString() );
+
+  // Tray Position tab
+  buildable.get_object( 'alignment_combo' ).connect( 'changed', function( widget ) {
+    settings.set_enum( 'alignment', widget.get_active() );
+  } );
+  buildable.get_object( 'alignment_combo' ).set_active( settings.get_enum( 'alignment' ) );
+
+  settings.bind( 'offset', buildable.get_object( 'offset' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+
+  // Icon Appearance tab
+  settings.bind( 'brightness', buildable.get_object( 'brightness' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+  settings.bind( 'contrast', buildable.get_object( 'contrast' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+  settings.bind( 'desaturation', buildable.get_object( 'desaturation' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+  settings.bind( 'opacity', buildable.get_object( 'opacity' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+  settings.bind( 'icon-size', buildable.get_object( 'icon_size' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+  settings.bind( 'spacing', buildable.get_object( 'spacing' ), 'value', Gio.SettingsBindFlags.DEFAULT );
+
+  box.show_all();
+
+  return box;
 }

@@ -51,7 +51,7 @@ cd TopIcons-Redux
 make install
 ```
 
-This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your user account (you don't need to use `sudo` since it installs for your user). By default, TopIcons Redux is installed to `$HOME/.local/share/gnome-shell/extensions/TopIconsRedux@pop-planet.info/`.
+This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your user account (you don't need to use `sudo` since it installs for your user). By default, TopIcons Redux is installed to `$HOME/.local/share/gnome-shell/extensions/topicons-redux@pop-planet.info/`.
 
 If you want to install the extension so that it will be usable system-wide, you will have to change the `INSTALL_PATH` variable, and run the installation using `sudo`.
 
@@ -78,7 +78,7 @@ cd TopIcons-Redux
 make install
 ```
 
-This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your user account (you don't need to use `sudo` since it installs for your user). By default, TopIcons Redux is installed to `$HOME/.local/share/gnome-shell/extensions/TopIconsRedux@pop-planet.info/`.
+This will compile the glib schemas and copy all the necessary files to the GNOME Shell extensions directory for your user account (you don't need to use `sudo` since it installs for your user). By default, TopIcons Redux is installed to `$HOME/.local/share/gnome-shell/extensions/topicons-redux@pop-planet.info/`.
 
 If you want to install the extension so that it will be usable system-wide, you will have to change the `INSTALL_PATH` variable, and run the installation using `sudo`.
 
