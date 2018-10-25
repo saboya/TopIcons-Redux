@@ -10,9 +10,9 @@ install: build
 
 build: compile-schema
 	rm -rf _build
-	mkdir _build
+	mkdir -p _build/media
 	cp -r --preserve=timestamps locale schemas media extension.js metadata.json prefs.js README.md Settings.ui utils.js _build
-	rm _build/media/toggle-switch.png
+	cp --preserve=timestamps media/toggle-switch.png _build/media
 	echo Build was successful
 
 compile-schema: ./schemas/org.gnome.shell.extensions.topicons-redux.gschema.xml
