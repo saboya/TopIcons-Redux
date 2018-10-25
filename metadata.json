@@ -1,5 +1,5 @@
 {
-  "description": "Displays legacy tray icons in the GNOME Shell top panel. Updated fork of TopIcons Plus.",
+  "description": "Displays legacy tray icons in the GNOME Shell top panel. Rewritten fork of TopIcons Plus.",
   "name": "TopIcons Redux",
   "gettext-domain": "topicons-redux",
   "shell-version": [
