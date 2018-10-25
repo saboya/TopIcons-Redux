@@ -11,7 +11,7 @@ install: build
 build: compile-schema
 	rm -rf _build
 	mkdir -p _build/media
-	cp -r --preserve=timestamps locale schemas media extension.js metadata.json prefs.js README.md Settings.ui utils.js _build
+	cp -r --preserve=timestamps schemas media extension.js metadata.json prefs.js README.md Settings.ui utils.js _build
 	cp --preserve=timestamps media/toggle-switch.png _build/media
 	echo Build was successful
 
