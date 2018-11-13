@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 6 (November 13, 2018)
+
+* Fixed: Re-add support for older versions of GNOME (props @jwrdegoede)
+
 ## Version 5 (October 25, 2018)
 
 * Fixed: Missing gschemas.compiled on extension repo
