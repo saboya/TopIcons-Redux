@@ -246,7 +246,13 @@ function createTray() {
   tray = new Shell.TrayManager();
   tray.connect( 'tray-icon-added', onTrayIconAdded );
   tray.connect( 'tray-icon-removed', onTrayIconRemoved );
-  tray.manage_screen( Main.panel.actor );
+  if (global.hasOwnProperty( 'screen' ) ) {
+    // GNOME 3.28 or older
+    tray.manage_screen( global.screen, Main.panel.actor );
+  } else {
+    // GNOME 3.30+
+    tray.manage_screen( Main.panel.actor );
+  }
   placeTray();
 }
 
