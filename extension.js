@@ -29,17 +29,18 @@
  */
 
 
-const Shell          = imports.gi.Shell;
-const St             = imports.gi.St;
-const Main           = imports.ui.main;
-const GLib           = imports.gi.GLib;
-const Lang           = imports.lang;
-const System         = imports.system;
-const Clutter        = imports.gi.Clutter;
-const PanelMenu      = imports.ui.panelMenu;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me             = ExtensionUtils.getCurrentExtension();
-const Utils          = Me.imports.utils;
+const Shell            = imports.gi.Shell;
+const St               = imports.gi.St;
+const Main             = imports.ui.main;
+const GLib             = imports.gi.GLib;
+const Lang             = imports.lang;
+const System           = imports.system;
+const Clutter          = imports.gi.Clutter;
+const PanelMenu        = imports.ui.panelMenu;
+const ExtensionUtils   = imports.misc.extensionUtils;
+const ExtensionManager = Main.extensionManager;
+const Me               = ExtensionUtils.getCurrentExtension();
+const Utils            = Me.imports.utils;
 
 let settings                = null;
 let tray                    = null;
@@ -119,7 +120,8 @@ function onTrayIconAdded( o, icon, role, delay=1000 ) {
   let iconWmClass = icon.wm_class ? icon.wm_class.toLowerCase() : '';
 
   for ( let [wmClass, uuid] of blacklist ) {
-    if ( ExtensionUtils.extensions[uuid] !== undefined && ExtensionUtils.extensions[uuid].state === 1 && iconWmClass === wmClass) {
+    let extension = ExtensionManager.lookup(uuid);
+    if ( extension !== undefined && extension.state === 1 && iconWmClass === wmClass) {
       return;
     }
   }
