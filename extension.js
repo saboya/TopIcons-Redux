@@ -62,6 +62,7 @@ function init() {
   Utils.initTranslations( 'topicons-redux' );
 }
 
+const getActorCompat = (obj) => Utils.isGnomeVersionMin("3.34") ? obj : obj.actor;
 
 /**
  * enable:
@@ -72,9 +73,9 @@ function enable() {
   tray = Main.legacyTray;
 
   if (tray) {
-      GLib.idle_add( GLib.PRIORITY_LOW, moveToTop );
+    GLib.idle_add( GLib.PRIORITY_LOW, moveToTop );
   } else {
-      GLib.idle_add( GLib.PRIORITY_LOW, createTray );
+    GLib.idle_add( GLib.PRIORITY_LOW, createTray );
   }
 
   settings = Utils.getSettings();
@@ -137,7 +138,7 @@ function onTrayIconAdded( o, icon, role, delay=1000 ) {
 
   GLib.timeout_add( GLib.PRIORITY_DEFAULT, delay, Lang.bind( this, function() {
     iconContainer.visible        = true;
-    iconsContainer.actor.visible = true;
+    getActorCompat( iconsContainer ).visible = true;
 
     return GLib.SOURCE_REMOVE;
   } ) );
@@ -168,7 +169,7 @@ function onTrayIconRemoved( o, icon ) {
   icons.splice( icons.indexOf( icon ), 1 );
 
   if ( icons.length === 0 ) {
-    iconsContainer.actor.visible = false;
+    getActorCompat( iconsContainer ).visible = false;
   }
 }
 
@@ -233,7 +234,7 @@ function createIconsContainer() {
 
   // An empty ButtonBox will still display padding,therefore create it without visibility.
   iconsContainer = new PanelMenu.ButtonBox( { visible: false } );
-  iconsContainer.actor.add_actor( iconsBoxLayout );
+  getActorCompat( iconsContainer ).add_actor( iconsBoxLayout );
 }
 
 
@@ -248,10 +249,10 @@ function createTray() {
   tray.connect( 'tray-icon-removed', onTrayIconRemoved );
   if (global.hasOwnProperty( 'screen' ) ) {
     // GNOME 3.28 or older
-    tray.manage_screen( global.screen, Main.panel.actor );
+    tray.manage_screen( global.screen, getActorCompat( Main.panel ) );
   } else {
     // GNOME 3.30+
-    tray.manage_screen( Main.panel.actor );
+    tray.manage_screen( getActorCompat( Main.panel ) );
   }
   placeTray();
 }
@@ -261,7 +262,7 @@ function createTray() {
  * destroyTray:
  */
 function destroyTray() {
-  iconsContainer.actor.destroy();
+  getActorCompat( iconsContainer ).destroy();
   iconsContainer = null;
   iconsBoxLayout = null;
   icons          = [];
@@ -281,7 +282,7 @@ function moveToTop() {
   }
 
   if ( tray._trayIconRemovedId ) {
-      tray._trayManager.disconnect( tray._trayIconRemovedId );
+    tray._trayManager.disconnect( tray._trayIconRemovedId );
   }
 
   trayAddedId   = tray._trayManager.connect( 'tray-icon-added', onTrayIconAdded );
@@ -350,9 +351,11 @@ function moveToTray() {
   }
 
   if ( iconsContainer ) {
-    if ( iconsContainer.actor ) {
-      iconsContainer.actor.destroy();
-      iconsContainer.actor = null;
+    let actorCompat = getActorCompat(iconsContainer);
+
+    if ( actorCompat ) {
+      actorCompat.destroy();
+      actorCompat = null;
     }
 
     iconsContainer = null;
@@ -369,10 +372,10 @@ function placeTray() {
   let trayPosition = settings.get_enum( 'alignment' );
   let trayOrder    = settings.get_int( 'offset' );
 
-  let parent = iconsContainer.actor.get_parent();
+  let parent = getActorCompat( iconsContainer ).get_parent();
 
   if ( parent ) {
-    parent.remove_actor( iconsContainer.actor );
+    parent.remove_actor( getActorCompat( iconsContainer ) );
   }
 
   // Panel box
@@ -390,7 +393,7 @@ function placeTray() {
   let length = box.get_n_children();
   let index  = length - Math.min( trayOrder, length );
 
-  box.insert_child_at_index( iconsContainer.actor, index );
+  box.insert_child_at_index( getActorCompat( iconsContainer ), index );
 }
 
 
