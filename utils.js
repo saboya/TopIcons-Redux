@@ -31,7 +31,25 @@ const Gettext        = imports.gettext;
 const Gio            = imports.gi.Gio;
 const Config         = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
+const Me             = ExtensionUtils.getCurrentExtension();
 
+function compareVersion ( a, b ) {
+  var pa = a.split('.');
+  var pb = b.split('.');
+  for (var i = 0; i < 3; i++) {
+    var na = Number(pa[i]);
+    var nb = Number(pb[i]);
+    if (na > nb) return 1;
+    if (nb > na) return -1;
+    if (!isNaN(na) && isNaN(nb)) return 1;
+    if (isNaN(na) && !isNaN(nb)) return -1;
+  }
+  return 0;
+}
+
+function isGnomeVersionMin ( a ) {
+  return compareVersion(a, Config.PACKAGE_VERSION) >= 0;
+}
 
 /**
  * initTranslations:
@@ -93,3 +111,10 @@ function getSettings( schema ) {
 
   return new Gio.Settings( { settings_schema: schemaObj } );
 }
+
+module.exports = {
+  compareVersion,
+  getSettings,
+  initTranslations,
+  isGnomeVersionMin
+};
