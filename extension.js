@@ -51,7 +51,7 @@ let icons                   = [];
 let iconsBoxLayout          = null;
 let iconsContainer          = null;
 let panelChildSignals       = {};
-let blacklist               = [["skype"]];
+let blacklist               = [["skype", "SkypeNotification@chrisss404.gmail.com"]];
 
 
 /**
